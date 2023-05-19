@@ -2,18 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DrinksController;
+use App\Http\Controllers\PizzasController;
 
 Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/pizza', function () {
-    return view('pizza');
-});
+Route::get('/pizza',  [PizzasController::class, 'index']);
 
-Route::get('/drinks', function () {
-    return view('drinks');
-});
+Route::get('/pizza/{id}',  [MenuItem::class, 'index']);
+
+Route::get('/drinks',  [DrinksController::class, 'index']);
+
+Route::get('/drinks/{id}',  [MenuItem::class, 'index']);
 
 Route::get('/order', [OrderController::class, 'index']);
 
