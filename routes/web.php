@@ -11,11 +11,15 @@ Route::get('/', function () {
 
 Route::get('/pizza',  [PizzasController::class, 'index']);
 
-Route::get('/pizza/{id}',  [MenuItem::class, 'index']);
+Route::get('/pizza/{id}',  [PizzasController::class, 'showPizza']);
+
+Route::post('/pizza/{id}',  [PizzasController::class, 'addToOrder']);
 
 Route::get('/drinks',  [DrinksController::class, 'index']);
 
-Route::get('/drinks/{id}',  [MenuItem::class, 'index']);
+Route::get('/drinks/{id}',  [DrinksController::class, 'showDrink']);
+
+Route::post('/drinks/{id}',  [DrinksController::class, 'addToOrder']);
 
 Route::get('/order', [OrderController::class, 'index']);
 

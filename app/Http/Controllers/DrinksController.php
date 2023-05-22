@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DrinksController extends Controller
-{
-    public function index(){
-        $listOfDrinks = array(
+class DrinksController extends Controller{
+    private $listOfDrinks;
+
+    public function __construct()
+    {
+        $this->listOfDrinks = [
             (object) [
                 'id' => '1',
                 'name' => 'tea',
@@ -28,13 +30,21 @@ class DrinksController extends Controller
                 'name' => 'nestea',
                 'price' => '5'
             ],
-        );
-
-        return view("drinks", compact('listOfDrinks'));
+        ];
     }
 
-    // public function addToOrder($id){
-    //     $newOrder = [1, 2, 3]
-    //     return view("order", compact('newOrder'));
-    // }
+    private function getListOfDrinks(){
+        return $this->listOfDrinks;
+    }
+
+    public function index(){
+        $listOfDrinks = $this->getListOfDrinks();
+        return view("drinks", ['listOfDrinks' => $listOfDrinks]);
+    }
+
+    public function showDrink($id){
+        $listOfDrinks = $this->getListOfDrinks();
+        $item = $listOfDrinks[$id-1];
+        return view("menuItem", ['item' => $item]);
+    }
 }

@@ -6,7 +6,7 @@
     @if(!empty($listOPizzas))
         <ul>
             @foreach($listOPizzas as $item) 
-            <li><a href='/pizza/$item->id'>{{$item->name}}</a></li>
+            <li><a href="/pizza/{{$item->id}}">{{$item->name}}</a></li>
             @endforeach
         </ul>
     @else

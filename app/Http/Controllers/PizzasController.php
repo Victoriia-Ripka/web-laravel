@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PizzasController extends Controller
-{
-    public function index(){
-        $listOPizzas = array(
+class PizzasController extends Controller{ 
+    private $listOPizzas;
+
+    public function __construct()
+    {
+        $this->listOPizzas = [
             (object) [
                 'id' => '1',
                 'name' => 'papperoni',
@@ -23,8 +25,21 @@ class PizzasController extends Controller
                 'name' => '4 cheeses',
                 'price' => '20'
             ],
-        );
+        ];
+    }
 
-        return view("pizza", compact('listOPizzas'));
+    private function getListOfPizzas(){
+        return $this->listOPizzas;
+    }    
+
+    public function index(){
+        $listOPizzas = $this->getListOfPizzas();
+        return view("pizza", ['listOPizzas' => $listOPizzas]);
+    }
+
+    public function showPizza($id){
+        $listOPizzas = $this->getListOfPizzas();
+        $item = $listOPizzas[$id-1];
+        return view("menuItem", ['item' => $item]);
     }
 }
