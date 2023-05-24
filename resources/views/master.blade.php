@@ -16,8 +16,10 @@
                     <li><a href="drinks">Drinks</a></li>
                     <li><a href="delivery">Delivery</a></li>
                     <li><a href="order">Your order</a></li>
+                    <li><a href="user">Account</a></li>
                 </ul>
             </nav>
+            <?=session('message')?>
         </header>
         @yield('content')
         <footer>

@@ -48,3 +48,5 @@ class DrinksController extends Controller{
         return view("menuItem", ['item' => $item]);
     }
 }
+
+?>

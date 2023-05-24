@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MenuItem;
+use App\Models\Item;
 
 class PizzasController extends Controller{ 
     private $listOPizzas;
@@ -33,14 +33,17 @@ class PizzasController extends Controller{
     }    
 
     public function index(){
-        $pizzas = MenuItem::all();
-        $listOPizzas = $this->getListOfPizzas();
-        return view("pizza", ['listOPizzas' => $listOPizzas]);
+        $pizzas = Item::pizzas();
+        // $listOPizzas = $this->getListOfPizzas();
+        return view("pizza", ['listOPizzas' => $pizzas]);
     }
 
     public function showPizza($id){
-        $listOPizzas = $this->getListOfPizzas();
-        $item = $listOPizzas[$id-1];
+        $pizzas = Item::all();
+        // $listOPizzas = $this->getListOfPizzas();
+        $item = $pizzas[$id-1];
         return view("menuItem", ['item' => $item]);
     }
 }
+
+?>

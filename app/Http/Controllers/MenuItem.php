@@ -12,3 +12,5 @@ class MenuItem extends Controller
         return view("menuItem", compact('order'));
     }
 }
+
+?>
