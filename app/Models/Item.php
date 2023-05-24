@@ -18,6 +18,16 @@ class Item extends Model
         $items = Item::where('type', 'pizza')->get();
         return $items;
     }
+
+    public function getWater($id){
+        $item = Item::find($id);
+        return $item;
+    }
+
+    public function getPizza($id){
+        $item = Item::find($id);
+        return $item;
+    }
 }
 
 ?>
