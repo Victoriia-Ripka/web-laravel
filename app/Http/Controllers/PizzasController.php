@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MenuItem;
 
 class PizzasController extends Controller{ 
     private $listOPizzas;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->listOPizzas = [
             (object) [
                 'id' => '1',
@@ -33,6 +33,7 @@ class PizzasController extends Controller{
     }    
 
     public function index(){
+        $pizzas = MenuItem::all();
         $listOPizzas = $this->getListOfPizzas();
         return view("pizza", ['listOPizzas' => $listOPizzas]);
     }
