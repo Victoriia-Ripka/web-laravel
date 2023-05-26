@@ -6,7 +6,15 @@
     @if(!empty($listOPizzas))
         <ul>
             @foreach($listOPizzas as $item) 
-            <li><a href="/pizza/{{$item->id}}">{{$item->name}}</a></li>
+            <li><a href="/pizza/{{$item->id}}">{{$item->name}}</a>
+
+            <form method="POST" action="<?=url('pizza')?>" >
+                <input type="hidden" name="product_id" value="{{$item->id}}">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="_token" value="<?=csrf_token()?>">
+                <button type="submit">Add to Cart</button>
+            </form>
+            </li>
             @endforeach
         </ul>
     @else

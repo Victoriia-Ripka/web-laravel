@@ -2,11 +2,11 @@
 @section('OrderInformation')
 <div>
     @if(!empty($items))
-        <ul>
+        <ol>
         @foreach($items as $item) 
             <li><p>{{$item->name}} <span> ${{$item->price}} </span> <span>x{{$item->quantity}}<span></p></li>
         @endforeach
-        </ul>
+        </ol>
     @else
         <p>nothing here</p>
     @endif

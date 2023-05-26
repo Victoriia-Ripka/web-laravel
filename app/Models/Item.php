@@ -29,13 +29,8 @@ class Item extends Model
         return $item;
     }
 
-    public function addItemToOrder($id){
-        
-    }
-
-    public function So(){
-        $items = $this->belongsToMany('App\Models\Order');
-        return $items;
+    public function ordersWithThisItem(){
+        return $this->belongsToMany('App\Models\Order');
     }
 }
 

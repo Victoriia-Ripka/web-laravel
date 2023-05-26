@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Customer;
+use App\Models\OrderProduct;
 
 class DrinksController extends Controller{
     
@@ -18,16 +20,34 @@ class DrinksController extends Controller{
         return view("menuItem", ['item' => $waters]);
     }
 
-    public function addToOrder($id){
-        // Create a new order for the customer
-        $order = new Order();
-        $order->user_id = $_COOKIE["id"];
-        $order->save();
+    public function addToOrder(Request $request){
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+       
+        if(isset($_COOKIE["id"])){
+            $user = Customer::find($_COOKIE["id"]);
+            $previous_order = $user->orders();
 
-        $waters = Item::addItemToOrder($id);
+            if ($previous_order->count() > 0) {
+                $orderId = $previous_order->first()->id;
+            } else {
+                $order = new Order();
+                $order->customer_id = $_COOKIE["id"];
+                $order->save();
+                $orderId = $order->id;
+            }
+
+            $cartItem = new OrderProduct();
+            $cartItem->item_id = $productId;
+            $cartItem->quantity = $quantity;
+            $cartItem->order_id = $orderId;
+            $cartItem->save();
+        } else {
+            return redirect('user')->with('message', 'you have been registere to make an order');
+        }
+
         return redirect('order');            
     }
-        
 }
 
 ?>

@@ -12,16 +12,13 @@ Route::get('/', function () {
 });
 
 Route::get('/pizza',  [PizzasController::class, 'index']);
-
+Route::post('/pizza',  [DrinksController::class, 'addToOrder'])->name('cart.add');
 Route::get('/pizza/{id}',  [PizzasController::class, 'showPizza']);
 
-// Route::post('/pizza/{id}',  [DrinksController::class, 'addToOrder']);
 
 Route::get('/waters',  [DrinksController::class, 'index']);
-
-Route::match(['post', 'get'], '/waters/{id}',  [DrinksController::class, 'showDrink']);
-
-// Route::post('/waters/{id}',  [DrinksController::class, 'addToOrder']);
+Route::post('/waters',  [DrinksController::class, 'addToOrder'])->name('cart.add');
+Route::get('/waters/{id}',  [DrinksController::class, 'showDrink']);
 
 Route::get('/order', [OrderController::class, 'index']);
 Route::get('/order/{id}', [OrderController::class, 'indexForOrder']);
@@ -33,7 +30,6 @@ Route::get('/delivery', function () {
 Route::get('/user', function () {
     return view('user');
 });
-
 Route::post('/user', function (Request $request) {
     $user = Customer::createCustomer($request);
     return redirect('pizza')->with('message', 'registration done successfully ');
