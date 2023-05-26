@@ -28,6 +28,15 @@ class Item extends Model
         $item = Item::find($id);
         return $item;
     }
+
+    public function addItemToOrder($id){
+        
+    }
+
+    public function So(){
+        $items = $this->belongsToMany('App\Models\Order');
+        return $items;
+    }
 }
 
 ?>

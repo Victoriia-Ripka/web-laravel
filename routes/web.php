@@ -15,15 +15,16 @@ Route::get('/pizza',  [PizzasController::class, 'index']);
 
 Route::get('/pizza/{id}',  [PizzasController::class, 'showPizza']);
 
-// Route::post('/pizza/{id}',  [PizzasController::class, 'addToOrder']);
+// Route::post('/pizza/{id}',  [DrinksController::class, 'addToOrder']);
 
-Route::get('/drinks',  [DrinksController::class, 'index']);
+Route::get('/waters',  [DrinksController::class, 'index']);
 
-Route::get('/drinks/{id}',  [DrinksController::class, 'showDrink']);
+Route::match(['post', 'get'], '/waters/{id}',  [DrinksController::class, 'showDrink']);
 
-// Route::post('/drinks/{id}',  [DrinksController::class, 'addToOrder']);
+// Route::post('/waters/{id}',  [DrinksController::class, 'addToOrder']);
 
 Route::get('/order', [OrderController::class, 'index']);
+Route::get('/order/{id}', [OrderController::class, 'indexForOrder']);
 
 Route::get('/delivery', function () {
     return view('delivery');

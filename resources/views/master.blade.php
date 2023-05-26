@@ -10,13 +10,20 @@
     <body>
         <header>
             <p><a href="/">Pizzeria MamaMia</a></p>
+            <?php
+                if(!isset($_COOKIE["id"])) {
+                    echo "You have not done registration!<br>";
+                } else {
+                    echo "You is registrated<br>";
+                }
+            ?>
             <nav>
                 <ul>
                     <li><a href="pizza">Pizza</a></li>
-                    <li><a href="drinks">Drinks</a></li>
-                    <li><a href="delivery">Delivery</a></li>
-                    <li><a href="order">Your order</a></li>
+                    <li><a href="waters">Waters</a></li>
+                    <li><a href="order">Orders</a></li>
                     <li><a href="user">Account</a></li>
+                    <li><a href="delivery">Delivery</a></li>
                 </ul>
             </nav>
             <?=session('message')?>

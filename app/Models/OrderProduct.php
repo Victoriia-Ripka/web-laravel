@@ -4,22 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Item;
 
-class Order extends Model{
+class OrderProduct extends Model
+{
     use HasFactory;
 
-    protected $fillable = ['user_id'];
+    protected $table = 'order_products';
+    protected $fillable = ['order_id', 'product_id', 'quantity'];
 
     public function customer(){
         return $this->belongsTo('App\Models\Customer');
     }
-
-    public function items(){
-        return $this->belongsToMany(Item::class);
-    }
 }
-
-?>
-
-<!-- ->withPivot('quantity') -->
