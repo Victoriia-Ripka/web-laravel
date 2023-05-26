@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Order;
 use App\Models\Customer;
+use App\Models\OrderProduct;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -33,23 +34,35 @@ class OrderController extends Controller
         
     }
 
-    public function store(Request $request){
+    public function addToOrder(Request $request){
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+       
+        if(isset($_COOKIE["id"])){
+            $user = Customer::find($_COOKIE["id"]);
+            $previous_order = $user->orders();
 
-        // insert into orders table
-        $customer_id = $_COOKIE["id"] ?? null;
-        $order = Order::create(['customer_id']);
+            if ($previous_order->count() > 0) {
+                $orderId = $previous_order->first()->id;
+            } else {
+                $order = new Order();
+                $order->customer_id = $_COOKIE["id"];
+                $order->save();
+                $orderId = $order->id;
+            }
 
-        // insert into order_product table
-        // foreach()
+            $cartItem = new OrderProduct();
+            $cartItem->item_id = $productId;
+            $cartItem->quantity = $quantity;
+            $cartItem->order_id = $orderId;
+            $cartItem->save();
+        } else {
+            return redirect('user')->with('message', 'you have been registere to make an order');
+        }
+
+        return redirect('order');            
     }
 
 }
 
 ?>
-
-<!-- use Gloudemans\Shoppingcart\Facades\Cart; -->
-
-<!-- Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::post('/cart/{product}', 'CartController@store')->name('cart.store');
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.index')->middleware('auth');
-Route::post('/checkout', 'CheckoutController@store')->name('checkout.store'); -->

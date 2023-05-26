@@ -12,20 +12,23 @@ Route::get('/', function () {
 });
 
 Route::get('/pizza',  [PizzasController::class, 'index']);
-Route::post('/pizza',  [DrinksController::class, 'addToOrder'])->name('cart.add');
+Route::post('/pizza',  [OrderController::class, 'addToOrder'])->name('cart.add');
 Route::get('/pizza/{id}',  [PizzasController::class, 'showPizza']);
 
 
 Route::get('/waters',  [DrinksController::class, 'index']);
-Route::post('/waters',  [DrinksController::class, 'addToOrder'])->name('cart.add');
+Route::post('/waters',  [OrderController::class, 'addToOrder'])->name('cart.add');
 Route::get('/waters/{id}',  [DrinksController::class, 'showDrink']);
+
 
 Route::get('/order', [OrderController::class, 'index']);
 Route::get('/order/{id}', [OrderController::class, 'indexForOrder']);
 
+
 Route::get('/delivery', function () {
     return view('delivery');
 });
+
 
 Route::get('/user', function () {
     return view('user');
